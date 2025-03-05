@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: space-between; /* Align left and right content */
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f0f4ff, #d9e8ff);
+            color: #333;
+            overflow: hidden;
+            padding: 20px;
+            position: relative;
+        }
+
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: calc(100% - 40px);
+            z-index: 1;
+        }
+
+        .header img {
+            height: 50px;
+            width: auto;
+            margin-top:5spx;
+        }
+
+        .left-side {
+            text-align: left;
+            flex: 1;
+            z-index: 1;
+            margin-left:50px;
+        }
+
+        .title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            color: white;
+            background: linear-gradient(45deg, #007BFF, #0056b3);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .button:hover {
+            background: linear-gradient(45deg, #0056b3, #007BFF);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .button:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .right-side img {
+            width: 50%; /* Adjust size of the image */
+            height: auto;
+            object-fit: contain;
+            align: right;
+            display: flex;
+            justify-content: flex-end; /* Push the image to the right */
+            margin-left:400px;
+
+        }
+    </style>
+</head>
+<body>
+ {% load static %}
+    <!-- Header with logos -->
+    <div class="header">
+
+        <img src="{% static 'klu-logo.png' %}" alt="KLU Logo">
+        <img src="{% static 'logo.png' %}" alt="KLU GLUG Logo">
+    </div>
+
+    <!-- Left side content -->
+    <div class="left-side">
+        <div class="title">Inventory Management</div>
+        <a href="{% url 'view_items' %}" class="button">Get Started</a>
+    </div>
+
+    <!-- Image on the right side -->
+    <div class="right-side">
+        <img src="{% static 'inventory.png' %}" alt="Your Image">
+    </div>
+
+</body>
+</html>

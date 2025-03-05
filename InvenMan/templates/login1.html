@@ -1,0 +1,110 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Login for Editing</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Login to Edit Item</h1>-->
+<!--    <form method="POST">-->
+<!--        {% csrf_token %}-->
+<!--        <label for="username">Username:</label>-->
+<!--        <input type="text" name="username" required><br><br>-->
+<!--        <label for="password">Password:</label>-->
+<!--        <input type="password" name="password" required><br><br>-->
+<!--        <button type="submit">Login</button>-->
+<!--    </form>-->
+<!--    {% if error %}-->
+<!--        <p>{{ error }}</p>-->
+<!--    {% endif %}-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login for Editing</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ffffff, #0099ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            padding: 20px;
+            text-align: center;
+        }
+        .login-container h1 {
+            margin: 0 0 20px;
+            color: #333;
+            font-size: 24px;
+        }
+        .login-container label {
+            display: block;
+            text-align: left;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .login-container input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to right, #007bff, #0056b3);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background: linear-gradient(to right, #0056b3, #003d7a);
+        }
+        .login-container p {
+            color: red;
+            font-size: 14px;
+            margin: 10px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login to Edit Item</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+        {% if error %}
+            <p>{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

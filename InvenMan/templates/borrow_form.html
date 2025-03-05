@@ -1,0 +1,367 @@
+
+<!--<!DOCTYPE html>-->
+
+<!--<html>-->
+
+<!--<head>-->
+
+<!--    <title>Borrow Item</title>-->
+
+<!--    <style>-->
+
+<!--        body {-->
+
+<!--            font-family: Arial, sans-serif;-->
+
+<!--            margin: 0;-->
+
+<!--            padding: 0;-->
+
+<!--            background-color: #f9f9f9;-->
+
+<!--            display: flex;-->
+
+<!--            align-items: center;-->
+
+<!--            justify-content: center;-->
+
+<!--            min-height: 100vh;-->
+
+<!--        }-->
+
+
+
+<!--        .form-container {-->
+
+<!--            background-color: #fff;-->
+
+<!--            padding: 20px 30px;-->
+
+<!--            border-radius: 8px;-->
+
+<!--            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);-->
+
+<!--            width: 100%;-->
+
+<!--            max-width: 400px;-->
+
+<!--            text-align: center;-->
+
+<!--        }-->
+
+
+
+<!--        h1 {-->
+
+<!--            text-align: center;-->
+
+<!--            color: #333;-->
+
+<!--            margin-bottom: 20px;-->
+
+<!--        }-->
+
+
+
+<!--        label {-->
+
+<!--            font-size: 14px;-->
+
+<!--            color: #555;-->
+
+<!--            display: block;-->
+
+<!--            margin-bottom: 8px;-->
+
+<!--            text-align: left;-->
+
+<!--        }-->
+
+
+
+<!--        input, select {-->
+
+<!--            width: 100%;-->
+
+<!--            padding: 10px;-->
+
+<!--            margin-bottom: 15px;-->
+
+<!--            border: 1px solid #ddd;-->
+
+<!--            border-radius: 5px;-->
+
+<!--            font-size: 14px;-->
+
+<!--            background-color: #f9f9f9;-->
+
+<!--        }-->
+
+
+
+<!--        button {-->
+
+<!--            background-color: #007bff;-->
+
+<!--            color: #fff;-->
+
+<!--            border: none;-->
+
+<!--            padding: 10px 15px;-->
+
+<!--            border-radius: 5px;-->
+
+<!--            cursor: pointer;-->
+
+<!--            font-size: 16px;-->
+
+<!--            width: 100%;-->
+
+<!--        }-->
+
+
+
+<!--        button:hover {-->
+
+<!--            background-color: #0056b3;-->
+
+<!--        }-->
+
+
+
+<!--        p {-->
+
+<!--            font-size: 14px;-->
+
+<!--            margin-top: 10px;-->
+
+<!--        }-->
+
+
+
+<!--        p[style*="color: red"] {-->
+
+<!--            color: red;-->
+
+<!--            font-weight: bold;-->
+
+<!--        }-->
+
+
+
+<!--        p[style*="color: green"] {-->
+
+<!--            color: green;-->
+
+<!--            font-weight: bold;-->
+
+<!--        }-->
+
+<!--    </style>-->
+
+<!--</head>-->
+
+<!--<body>-->
+
+<!--    <div class="form-container">-->
+
+<!--        <h1>Borrow an Item</h1>-->
+
+<!--        <form method="POST">-->
+
+<!--            {% csrf_token %}-->
+
+<!--            <label for="id_number">ID Number:</label>-->
+
+<!--            <input type="text" name="id_number" required>-->
+
+
+
+<!--            <label for="name">Name:</label>-->
+
+<!--            <input type="text" name="name" required>-->
+
+
+
+<!--            <label for="email">Email:</label>-->
+
+<!--            <input type="email" name="email" required>-->
+
+
+
+<!--            <label for="branch">Branch:</label>-->
+
+<!--            <input type="text" name="branch" required>-->
+
+
+
+<!--            <label for="item">Item:</label>-->
+
+<!--            <select name="item" required>-->
+
+<!--                {% for item in items %}-->
+
+<!--                <option value="{{ item.id }}">{{ item.name }} ({{ item.quantity }} available)</option>-->
+
+<!--                {% endfor %}-->
+
+<!--            </select>-->
+
+
+
+<!--            <label for="quantity">Quantity:</label>-->
+
+<!--            <input type="number" name="quantity" required>-->
+
+
+
+<!--            <button type="submit">Borrow</button>-->
+
+<!--        </form>-->
+
+
+
+<!--        {% if error %}-->
+
+<!--        <p style="color: red;">{{ error }}</p>-->
+
+<!--        {% endif %}-->
+
+<!--        {% if success %}-->
+
+<!--        <p style="color: green;">{{ success }}</p>-->
+
+<!--        {% endif %}-->
+
+<!--    </div>-->
+
+<!--</body>-->
+
+<!--</html>-->
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Borrow Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #007bff, #e0f7ff); /* Blue gradient background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff; /* Matches the gradient theme */
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        p[style*="color: red"] {
+            color: red;
+            font-weight: bold;
+        }
+
+        p[style*="color: green"] {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Borrow an Item</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="id_number">ID Number:</label>
+            <input type="text" name="id_number" required>
+
+            <label for="name">Name:</label>
+            <input type="text" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+
+            <label for="branch">Branch:</label>
+            <input type="text" name="branch" required>
+
+            <label for="item">Item:</label>
+            <select name="item" required>
+                {% for item in items %}
+                <option value="{{ item.id }}">{{ item.name }} ({{ item.quantity }} available)</option>
+                {% endfor %}
+            </select>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity" required>
+
+            <button type="submit">Borrow</button>
+        </form>
+
+        {% if error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        {% if success %}
+        <p style="color: green;">{{ success }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

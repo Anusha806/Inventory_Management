@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Items</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #e0f7ff, #e0f7ff); /* Single light blue shade */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures the body takes up the full viewport height */
+        }
+
+        header {
+            background-color: #ffffff; /* Navbar updated to white */
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #0056b3; /* Text color updated for visibility */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            max-height: 50px;
+        }
+
+        header h1 {
+            font-size: 22px;
+            margin: 0;
+            color: #0056b3; /* Matches text color */
+        }
+
+        header div a img {
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+        }
+
+        .container {
+            width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            flex: 1; /* Allows the container to take up remaining vertical space */
+        }
+
+        .category {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fefefe;
+            overflow: hidden;
+        }
+
+        .category h2 {
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 15px;
+            font-size: 18px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category h2:hover {
+            background-color: #eaeaea;
+        }
+
+        .category .items {
+            display: none;
+            padding: 15px;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .item img {
+            max-width: 100px;
+            height: auto;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-right: 20px;
+        }
+
+        .details {
+            flex: 1;
+        }
+
+        .details h3 {
+            margin: 0 0 5px 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .details p {
+            margin: 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .actions a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .actions .edit {
+            background-color: #28a745;
+        }
+
+        .actions .edit:hover {
+            background-color: #218838;
+        }
+
+        .actions .delete {
+            background-color: #dc3545;
+        }
+
+        .actions .delete:hover {
+            background-color: #c82333;
+        }
+
+        .actions .borrow {
+            background-color: #007bff;
+        }
+
+        .actions .borrow:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #0056b3; /* Footer retains original style */
+            color: #fff;
+            font-size: 14px;
+            margin-top: 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function toggleItems(categoryId) {
+            const itemsContainer = document.getElementById(categoryId);
+            if (itemsContainer.style.display === "block") {
+                itemsContainer.style.display = "none";
+            } else {
+                itemsContainer.style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        {% load static %}
+        <img src="{% static 'logo.png' %}" alt="Logo">
+        <h1>Welcome to KL GLUG INVENTORY</h1>
+        <div>
+            <a href="{% url 'login3' %}"><img src="{% static 'additem.png' %}" alt="Add new item"></a>
+               <a href="{% url 'login4' %}"><img src="{% static 'additem.png' %}" alt="Borrowed item"></a>
+        </div>
+    </header>
+
+    <div class="container">
+        {% for category, items in categorized_items.items %}
+        <div class="category">
+            <h2 onclick="toggleItems('category-{{ forloop.counter }}')">
+                {{ category }}
+                <span>▼</span>
+            </h2>
+            <div class="items" id="category-{{ forloop.counter }}">
+                {% for item in items %}
+                <div class="item">
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                    <div class="details">
+                        <h3>{{ item.name }}</h3>
+                        <p>Available: {{ item.quantity }}</p>
+                    </div>
+                    <div class="actions">
+                        <a href="{% url 'login1' item.id %}" class="edit">✎</a>
+                        <a href="{% url 'login2' item.id %}" class="delete">✕</a>
+                        <a href="{% url 'borrow_item' %}" class="borrow">➕</a>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No items available in this category.</p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 KL GLUG Inventory. All rights reserved. <a href="#">Contact Us</a></p>
+    </footer>
+</body>
+</html>
